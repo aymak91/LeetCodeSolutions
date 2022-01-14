@@ -1,33 +1,55 @@
-// 735. Asteroid Collision
+// 79. Word Search
 // Medium
-// We are given an array asteroids of integers representing asteroids in a row.
-// For each asteroid, the absolute value represents its size, and the sign represents its direction 
-// (positive meaning right, negative meaning left). Each asteroid moves at the same speed.
-// Find out the state of the asteroids after all collisions. If two asteroids meet, the smaller one 
-// will explode. If both are the same size, both will explode. Two asteroids moving in the same direction will never meet.
+
+// Given an m x n board and a word, find if the word exists in the grid.
+// The word can be constructed from letters of sequentially adjacent cells, where "adjacent" cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.
+
+ 
 
 // Example 1:
-// Input: asteroids = [5,10,-5]
-// Output: [5,10]
-// Explanation: The 10 and -5 collide resulting in 10.  The 5 and 10 never collide.
+// Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
+// Output: true
 
 // Example 2:
-// Input: asteroids = [8,-8]
-// Output: []
-// Explanation: The 8 and -8 collide exploding each other.
+// Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "SEE"
+// Output: true
 
 // Example 3:
-// Input: asteroids = [10,2,-5]
-// Output: [10]
-// Explanation: The 2 and -5 collide resulting in -5. The 10 and -5 collide resulting in 10.
+// Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCB"
+// Output: false
 
-// Example 4:
-// Input: asteroids = [-2,-1,1,2] 
-// Output: [-2,-1,1,2]
-// Explanation: The -2 and -1 are moving left, while the 1 and 2 are moving right. Asteroids moving the same 
-// direction never meet, so no asteroids will meet each other.
- 
-// Constraints:
-// 1 <= asteroids <= 104
-// -1000 <= asteroids[i] <= 1000
-// asteroids[i] != 0
+/**
+ * @param {character[][]} board
+ * @param {string} word
+ * @return {boolean}
+ */
+let exist = function(board, word) {
+    
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[i].length; j++) {
+            if (board[i][j] === word.charAt(0) && dfs(board, i, j, 0, word)) {
+                return true;
+            }
+        }
+    }
+    return false;
+};
+
+let dfs = function(board, i, j, count, word) {
+    if (count === word.length) return true;
+    
+    if (i < 0 || i >= board.length || j < 0 || j >= board[i].length || board[i][j] != word.charAt(count)) {
+        return false
+    }
+    
+    let temp = board[i][j];
+    board[i][j] = ' ';
+    found = dfs(board, i+1, j, count + 1, word)
+        || dfs(board, i - 1, j, count + 1, word)
+        || dfs(board, i, j + 1, count + 1, word)
+        || dfs(board, i, j - 1, count + 1, word)
+
+    board[i][j] = temp;
+    return found;
+}
+

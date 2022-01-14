@@ -76,3 +76,5 @@ const asteroidCollision = function(asteroids) {
     
     return stack;
 };
+
+// O(n) where n = length of asteroids array
