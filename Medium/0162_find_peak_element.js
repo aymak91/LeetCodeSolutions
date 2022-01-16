@@ -49,9 +49,9 @@ const findPeakElementRecursive = function(nums) {
     return search(nums, 0, nums.length-1);
 };
 
-const search = function(nums, l, r) {
-    if (l === r) return l;
-    let mid = Math.floor(l+(r-l)/2);
-    if (nums[mid] > nums[mid+1]) return search(nums, l, mid);
-    return search (nums, mid+1, r);
+const search = function(nums, left, right) {
+    if (left === right) return left;
+    let mid = Math.floor(left+(right-left)/2);
+    if (nums[mid] > nums[mid+1]) return search(nums, left, mid);
+    return search (nums, mid+1, right);
 }
