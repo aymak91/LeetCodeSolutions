@@ -35,14 +35,11 @@ const minChars = function(words) {
         }
     }
 
-    const keys = Object.keys(minCharCount);
-    const values = Object.values(minCharCount);
-
-    for (let i=0; i< keys.length; i++) {
-        for (let j=0; j<values[i]; j++) {
-            output.push(keys[i]);
-        }
-    }
+	for (let key in minCharCount) {
+		for ( let i = 0; i < minCharCount[key]; i++) {
+			output.push(key);
+		}
+	}
 
     return output;
 }
