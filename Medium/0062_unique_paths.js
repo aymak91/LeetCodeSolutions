@@ -38,13 +38,13 @@
  * @return {number}
  */
 const uniquePaths = function(m, n) {
-    let dp = [...Array(m)].map(e => Array(n).fill(null));
+    let dp = [...Array(m)].map(e => Array(n).fill(1));
     
-    // fill first col
-    for (let i=0; i<dp.length; i++) dp[i][0] = 1;
+    // // fill first col
+    // for (let i=0; i<dp.length; i++) dp[i][0] = 1;
 
-    // fill first row
-    for (let i=0; i<dp[0].length; i++) dp[0][i] = 1;
+    // // fill first row
+    // for (let i=0; i<dp[0].length; i++) dp[0][i] = 1;
     
     for (let i=1; i<dp.length; i++) {
         for (let j=1; j<dp[0].length; j++) {
@@ -55,10 +55,10 @@ const uniquePaths = function(m, n) {
     return dp[m-1][n-1];
 };
 
-const uniquePaths = function(m, n, memo = {}) {
+const uniquePaths2 = function(m, n, memo = {}) {
     const key = m + ',' + n;
     if (key in memo) return memo[key];
-    if (m === 1 && n === 1) return 1
+    if (m === 1 || n === 1) return 1
     if (m === 0 || n === 0) return 0;
     
     memo[key] = uniquePaths(m-1, n, memo) + uniquePaths(m, n-1, memo);

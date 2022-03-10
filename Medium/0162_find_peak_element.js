@@ -55,3 +55,14 @@ const search = function(nums, left, right) {
     if (nums[mid] > nums[mid+1]) return search(nums, left, mid);
     return search (nums, mid+1, right);
 }
+
+const findPeakLinear = (nums) => {
+
+    for (let i=0; i<nums.length; i++) {
+        const prev = nums[i - 1] === undefined ? -Infinity : nums[i - 1];
+        const next = nums[i + 1] === undefined ? -Infinity : nums[i + 1];
+        const current = nums[i];
+
+        if (current > prev && current > next) return i;
+    }
+}
