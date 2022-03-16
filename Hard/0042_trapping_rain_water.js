@@ -51,7 +51,7 @@ const trap = function(height) {
 };
 
 // O(1) memory
-const trap = function(height) {
+const trapMemory = function(height) {
     if (height.length === 0) return 0;
     
     let left = 0;
