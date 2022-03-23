@@ -66,3 +66,17 @@ const findPeakLinear = (nums) => {
         if (current > prev && current > next) return i;
     }
 }
+
+var findPeakElement = function(nums) {
+    let mid = Math.floor(nums.length/2);
+    let currNum = nums[mid];
+	let prevNum = nums[mid- 1] || -Infinity;
+	let nextNum = nums[mid + 1] || -Infinity;
+    if (currNum > prevNum && currNum > nextNum) return mid;
+	if (currNum < prevNum) {
+        return findPeakElement(nums.slice(0, mid));
+	} else {
+		let idx = findPeakElement(nums.slice(mid + 1));
+        return mid + idx + 1;
+	}
+};
