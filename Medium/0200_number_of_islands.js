@@ -38,10 +38,10 @@
     
     let islands = 0;
     
-    for (let i=0; i<grid.length; i++) {
-        for (let j=0; j<grid[0].length; j++) {
-            if (grid[i][j] === '1') {
-                islands += dfsFillCount(grid, i, j);
+    for (let row=0; row<grid.length; row++) {
+        for (let col=0; col<grid[0].length; col++) {
+            if (grid[row][col] === '1') {
+                islands += dfsFillCount(grid, row, col);
             } 
         }
     }
@@ -50,17 +50,56 @@
     
 };
 
-let dfsFillCount = function(board, i, j) {
+let dfsFillCount = function(board, row, col) {
     
-    const inBounds = i >= 0  && i < board.length && j >= 0 && j <board[i].length;
-    if (!inBounds || board[i][j] !== '1') return 0;
+    const inBounds = row >= 0  && row < board.length && col >= 0 && col <board[row].length;
+    if (!inBounds || board[row][col] !== '1') return 0;
     
-    board[i][j] = '0';
+    board[row][col] = '0';
     
-    dfsFillCount(board, i+1, j);
-    dfsFillCount(board, i-1, j);
-    dfsFillCount(board, i, j+1);
-    dfsFillCount(board, i, j-1);
+    dfsFillCount(board, row+1, col);
+    dfsFillCount(board, row-1, col);
+    dfsFillCount(board, row, col+1);
+    dfsFillCount(board, row, col-1);
     
     return 1;
 }
+
+// .....................................................
+
+
+const numIslandsMem = (grid) => {
+	let count = 0;
+	const visited = new Set();
+	
+	for (let row = 0; row < grid.length; row++) {
+		for (let col = 0; col < grid[0].length; col++) {
+	if (dfs(grid, row, col, visited)) count++;
+}
+}
+
+	return count;
+}
+
+const dfs = (grid, row, col, visited) => {
+	if (!posInbounds(grid, row, col)) return false;
+	const pos = row + "," + col;
+	if (visited.has(pos)) return false;
+	if (grid[row][col] === "0") return false;
+	
+	visited.add(pos);
+
+const exploreUp = dfs(grid, row - 1, col, visited);
+const exploreDown = dfs(grid, row + 1, col, visited);
+const exploreLeft = dfs(grid, row, col - 1, visited);
+const exploreRight =	dfs(grid, row, col + 1, visited);
+
+	return true;
+}
+
+const posInbounds = (grid, row, col) => {
+	const rowInbounds = 0 <= row && row < grid.length;
+	const colInbounds = 0 <= col && col < grid[0].length;
+	return rowInbounds && colInbounds;
+}
+
