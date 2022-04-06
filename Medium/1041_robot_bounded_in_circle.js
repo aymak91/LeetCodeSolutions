@@ -79,7 +79,6 @@
                 break;
             case "R":
                 direction = (direction + 1) % 4;
-                break;
         }
     }
     
