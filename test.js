@@ -1,32 +1,35 @@
-// a: numerator
-// b: denominator 
-
-var findPeakElement = function(nums) {
-    // bases
-    if (nums.length === 1) return 0;
-    if (nums.length === 2) {
-        if (nums[0] > nums[1]) return 0;
-        else return 1;
+function chooseFlask(requirements, flaskTypes, markings) {
+    requirements = requirements.sort((a, b) => a - b)
+    let minWaste = {
+        sum: Infinity,
+        flaskNum: -1
     }
     
-    // binary
-    const mid = Math.floor(nums.length / 2);
+    let i = 0
+    let j = 0
     
-    if (nums[mid - 1] && nums[mid + 1] && nums[mid] > nums[mid - 1] && nums[mid] > nums[mid + 1]) {
-        return mid;
-    } else if (nums[mid - 1] && nums[mid] < nums[mid - 1]) {
-        return findPeakElement(nums.slice(0, mid));
-    } else {
-        return 1 + mid + findPeakElement(nums.slice(mid + 1));
-    }
-};
+    while (i < flaskTypes) {
+        let currWasteSum = 0
+        let reqNum = 0
+        let currFlaskNum = i
+        
+        while (reqNum < requirements.length && j < markings.length && markings[j][0] === currFlaskNum) {
+            if (requirements[reqNum] > markings[j][1]) {
+                j++
+            } else {
+                currWasteSum += markings[j][1] - requirements[reqNum]
+                reqNum++
+            }
+        }
+        i++
+        while (j < markings.length && markings[j][0] === currFlaskNum) { j++ }
+        if (reqNum !== requirements.length) continue
 
-function estimatePi(n) {
-    let count = 0
-    for (let i=0; i<n; i++) {
-        const x = Math.random();
-        const y = Math.random();
-        if (Math.sqrt((x*x + y*y) <=1)) count++;
+        if (currWasteSum < minWaste.sum) {
+            minWaste.sum = currWasteSum
+            minWaste.flaskNum = currFlaskNum
+        }
     }
-    return (4*count/n).toFixed(10)
+
+    return minWaste.flaskNum
 }

@@ -41,7 +41,6 @@
 };
 
 // Iterative BFS
-// for some reason this works in python but doesnt pass all JS test cases. idk
 
 // class Solution:
 //     def maxDepth(self, root: Optional[TreeNode]) -> int:
@@ -67,13 +66,17 @@ var maxDepth = function(root) {
     let level = 0;
     let queue = [root]
 
-    while (queue.length > 0) {
-        for (let i=0; i<queue.length; i++){
-            const node = queue.shift();
-            if (node.left) queue.push(node.left);
-            if (node.right) queue.push(node.right);
+    let levelLength = queue.length;
+
+    while (queue.length) {
+        level++;
+        while(levelLength>0){
+            let removedNode = queue.shift();
+            if(removedNode.left) queue.push(removedNode.left);
+            if(removedNode.right) queue.push(removedNode.right);
+            levelLength--
         }
-        level += 1;
+        levelLength = queue.length;
     }
     return level;
 };
