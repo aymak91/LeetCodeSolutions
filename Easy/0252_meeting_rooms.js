@@ -9,13 +9,13 @@
 // Example
 
 // Example1
-// Input: intervals = [(0,30),(5,10),(15,20)]
+// Input: intervals = [{start: 0, end: 30},{start: 5, end: 10},{start: 15, end: 20}]
 // Output: false
 // Explanation: 
 // (0,30), (5,10) and (0,30),(15,20) will conflict
 
 // Example2
-// Input: intervals = [(5,8),(9,15)]
+// Input: intervals = [{start: 5, end: 8},{start: 9, end: 15}]
 // Output: true
 // Explanation: 
 // Two times will not conflict 
