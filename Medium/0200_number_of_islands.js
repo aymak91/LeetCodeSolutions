@@ -33,7 +33,7 @@
  * @param {character[][]} grid
  * @return {number}
  */
- let numIslands = function(grid) {
+const numIslands = function(grid) {
     if (grid === null || grid.length === 0) return 0;
     
     let islands = 0;
@@ -50,7 +50,7 @@
     
 };
 
-let dfsFillCount = function(board, row, col) {
+const dfsFillCount = function(board, row, col) {
     
     const inBounds = row >= 0  && row < board.length && col >= 0 && col <board[row].length;
     if (!inBounds || board[row][col] !== '1') return 0;

@@ -23,7 +23,7 @@
  * @param {string} word
  * @return {boolean}
  */
-let exist = function(board, word) {
+const exist = function(board, word) {
     
     for (let i = 0; i < board.length; i++) {
         for (let j = 0; j < board[i].length; j++) {
@@ -35,12 +35,12 @@ let exist = function(board, word) {
     return false;
 };
 
-let dfs = function(board, i, j, count, word) {
+const dfs = function(board, i, j, count, word) {
     if (count === word.length) return true;
     
-    if (i < 0 || i >= board.length || j < 0 || j >= board[i].length || board[i][j] != word.charAt(count)) {
-        return false
-    }
+    const inBound = i < 0 || i >= board.length || j < 0 || j >= board[i].length; 
+
+    if (inBound || board[i][j] != word.charAt(count)) return false;
     
     let temp = board[i][j];
     board[i][j] = ' ';
