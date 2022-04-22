@@ -45,7 +45,7 @@
     return left;
 };
 
-const findPeakElementRecursive = function(nums) {
+const findPeakElementRecursive2 = function(nums) {
     return search(nums, 0, nums.length-1);
 };
 
@@ -67,11 +67,12 @@ const findPeakLinear = (nums) => {
     }
 }
 
-var findPeakElement = function(nums) {
+const findPeakElementRecursive = function(nums) {
     let mid = Math.floor(nums.length/2);
     let current = nums[mid];
-	let prev = nums[mid- 1] || -Infinity;
-	let next = nums[mid + 1] || -Infinity;
+	const prev = nums[i - 1] === undefined ? -Infinity : nums[i - 1];
+    const next = nums[i + 1] === undefined ? -Infinity : nums[i + 1];
+
     if (current > prev && current > next) return mid;
 	if (current < prev) {
         return findPeakElement(nums.slice(0, mid));
