@@ -54,8 +54,25 @@ const maxDepthIterative = (root) => {
         const {node, depth} = stack.pop();
         max = Math.max(max, depth);    
         
-        if (node.left) stack.push({node: node.left, depth: depth+1});
         if (node.right) stack.push({node: node.right, depth: depth+1});
+        if (node.left) stack.push({node: node.left, depth: depth+1});
+    }
+    
+    return max;
+}
+
+const maxDepthBFS = (root) => {
+    if (!root) return 0;
+    
+    const queue = [{node: root, depth: 1}];
+    let max = 0;
+    
+    while (queue.length > 0) {
+        const {node, depth} = queue.shift();
+        max = Math.max(max, depth);    
+        
+        if (node.left) queue.push({node: node.left, depth: depth+1});
+        if (node.right) queue.push({node: node.right, depth: depth+1});
     }
     
     return max;
