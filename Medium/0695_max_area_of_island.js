@@ -53,8 +53,7 @@
 };
 
 const searchIsland = (grid, row, col) => {
-    const inbounds = row >= 0 && col >= 0 && row < grid.length && col < grid[0].length;
-    if (!inbounds || grid[row][col] !== 1) return 0;
+    if (!inBounds(grid, row, col) || grid[row][col] !== 1) return 0;
     grid[row][col] = 0;
 
     let size = 1;
@@ -62,6 +61,13 @@ const searchIsland = (grid, row, col) => {
     size += searchIsland(grid, row-1, col)
     size += searchIsland(grid, row, col+1)
     size += searchIsland(grid, row, col-1)
-    console.log(row, col, size)
+
     return size;
+}
+
+const inBounds = (grid, row, col) => {
+    const rowInbound = row >= 0 && row < grid.length;
+    const colInbound = col >= 0 && col < grid[0].length;
+
+    return rowInbound && colInbound;
 }
