@@ -18,6 +18,14 @@
 // Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCB"
 // Output: false
 
+// Constraints:
+
+// m == board.length
+// n = board[i].length
+// 1 <= m, n <= 6
+// 1 <= word.length <= 15
+// board and word consists of only lowercase and uppercase English letters.
+
 /**
  * @param {character[][]} board
  * @param {string} word
@@ -52,4 +60,3 @@ const dfs = function(board, i, j, count, word) {
     board[i][j] = temp;
     return found;
 }
-
