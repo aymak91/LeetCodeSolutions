@@ -40,21 +40,21 @@
  */
  const isBipartite = function(graph) {
     
-    let colored = {};
+    let partition = {};
     
     for (let node=0; node<graph.length; node++) {
-        if (!(node in colored) && !(valid(graph, node, colored))) return false;
+        if (!(node in partition) && !(valid(graph, node, partition))) return false;
     }
     return true;
 };
 
-const valid = (graph, node, colored, color = true) => {
-    if (node in colored) return color === colored[node];
+const valid = (graph, node, partition, color = true) => {
+    if (node in partition) return color === partition[node];
     
-    colored[node] = color;
+    partition[node] = color;
     
     for (let neighbor of graph[node]) {
-        if (!valid(graph, neighbor, colored, !color)) return false;
+        if (!valid(graph, neighbor, partition, !color)) return false;
     }
     
     return true;
