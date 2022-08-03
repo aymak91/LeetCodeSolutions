@@ -33,7 +33,7 @@
 // -10^4 <= target <= 10^4
 
 
-const search = function(nums, target) {
+const searchIterative = function(nums, target) {
 
     let left = 0;
     let right = nums.length - 1;
