@@ -59,3 +59,26 @@ const search = function(nums, target) {
     
     return -1;
 };
+
+// recursive
+const search = function(nums, target, left = 0, right = nums.length - 1) {
+    if (left === right) return nums[left] === target ? left : -1;
+    
+    const mid = Math.floor(left + (right-left)/2);
+    
+    if (nums[mid] === target) return mid;
+    
+    if (nums[left] <= nums[mid]) {
+        if (target > nums[mid] || target < nums[left]) {
+            return search(nums, target, mid+1, right)
+        } else {
+            return search(nums, target, left, mid-1)
+        }
+    } else {
+        if (target < nums[mid] || target > nums[right]) {
+            return search(nums, target, left, mid-1)
+        } else {
+            return search(nums, target, mid+1, right)
+        }
+    }
+};
