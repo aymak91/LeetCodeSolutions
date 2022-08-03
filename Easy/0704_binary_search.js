@@ -27,7 +27,7 @@
  * @param {number} target
  * @return {number}
  */
- var search = function(nums, target) {
+ const search = function(nums, target) {
     
     let left = 0;
     let right = nums.length - 1;
@@ -41,3 +41,12 @@
     
     return -1;
 };
+
+// recursive
+const search = function(nums, target, left = 0, right = nums.length) {
+    if (left >= right) return nums[left] === target ? left : -1;
+    const pivot = left + Math.floor((right - left)/2);
+    if (nums[pivot] === target) return pivot;
+    if (target < nums[pivot]) return search(nums, target, left, pivot - 1);
+    if (target > nums[pivot]) return search(nums, target, pivot + 1, right);
+ };
