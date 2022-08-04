@@ -43,7 +43,7 @@
 };
 
 // recursive
-const search = function(nums, target, left = 0, right = nums.length) {
+const searchRecursive = function(nums, target, left = 0, right = nums.length) {
     if (left >= right) return nums[left] === target ? left : -1;
     const pivot = left + Math.floor((right - left)/2);
     if (nums[pivot] === target) return pivot;
