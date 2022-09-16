@@ -50,6 +50,7 @@ class Node {
   
   class DoublyLinkedList {
     constructor() {
+        // dummy nodes
         this.head = new Node(null, null);
         this.tail = new Node(null, null);
         this.length = 0;
@@ -59,23 +60,30 @@ class Node {
     }
     
     push(node) {
+        // prev and next are relative to the current node
         let prev = this.tail.prev;
         let nxt = this.tail;
         
+        // connect prev and next nodes to the current node
         prev.next = node;
         nxt.prev = node;
         
+        // connect the current node with prev and next
         node.next = nxt;
         node.prev = prev;
         
         this.length++;
+
+        // if we return the node, then we can set the map[key] at the same time
         return node;
     }
     
     remove(node) {
+        // prev and next are relative to current node
         let prev = node.prev;
         let nxt = node.next;
         
+        // link prev and next together
         prev.next = nxt;
         nxt.prev = prev;
         
