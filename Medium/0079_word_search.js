@@ -33,9 +33,9 @@
  */
 const exist = function(board, word) {
     
-    for (let i = 0; i < board.length; i++) {
-        for (let j = 0; j < board[i].length; j++) {
-            if (board[i][j] === word.charAt(0) && dfs(board, i, j, 0, word)) {
+    for (let row = 0; row < board.length; row++) {
+        for (let col = 0; col < board[row].length; col++) {
+            if (board[row][col] === word.charAt(0) && dfs(board, row, col, 0, word)) {
                 return true;
             }
         }
@@ -43,20 +43,20 @@ const exist = function(board, word) {
     return false;
 };
 
-const dfs = function(board, i, j, count, word) {
+const dfs = function(board, row, col, count, word) {
     if (count === word.length) return true;
     
-    const inBound = i < 0 || i >= board.length || j < 0 || j >= board[i].length; 
+    const inBound = row < 0 || row >= board.length || col < 0 || col >= board[row].length; 
 
-    if (inBound || board[i][j] != word.charAt(count)) return false;
+    if (inBound || board[row][col] != word.charAt(count)) return false;
     
-    let temp = board[i][j];
-    board[i][j] = ' ';
-    found = dfs(board, i+1, j, count + 1, word)
-        || dfs(board, i - 1, j, count + 1, word)
-        || dfs(board, i, j + 1, count + 1, word)
-        || dfs(board, i, j - 1, count + 1, word)
+    let temp = board[row][col];
+    board[row][col] = ' ';
+    found = dfs(board, row+1, col, count + 1, word)
+        || dfs(board, row - 1, col, count + 1, word)
+        || dfs(board, row, col + 1, count + 1, word)
+        || dfs(board, row, col - 1, count + 1, word)
 
-    board[i][j] = temp;
+    board[row][col] = temp;
     return found;
 }
