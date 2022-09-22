@@ -3,6 +3,17 @@ class Heap {
         this.data = [];
     }
 
+    heapify(nums) {
+        
+        for (let num of nums) {
+            this.push(num);
+        }
+    }
+
+    length() {
+        return this.data.length;
+    }
+
     getParentIndex(i) {
         return Math.floor((i-1)/2)
     }
