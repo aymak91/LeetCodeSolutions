@@ -1,47 +1,80 @@
-const lastRow = maze.length - 1;
-const lastCol = maze[0].length - 1;
+/*
+ * Complete the 'findBestPath' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts following parameters:
+ *  1. INTEGER n
+ *  2. INTEGER m
+ *  3. INTEGER max_t
+ *  4. INTEGER_ARRAY beauty
+ *  5. INTEGER_ARRAY u
+ *  6. INTEGER_ARRAY v
+ *  7. INTEGER_ARRAY t
+ */
 
-const DIRECTIONS = [[0,1],[0,-1],[1,0],[-1,0]];
+// n = 4
+// m = 3
+// max_t = 50
+// beauty = [5, 10, 15, 20]
 
-const queue = [];
-const addToQueue = (row,col,step) => {
-    maze[row][col] = -1;
-    queue.push([row,col,step]);
+// edges
+// u = [0, 1, 0]
+// v = [1, 2, 3]
+// t = [10, 10, 10]
+function findBestPath(n, m, max_t, beauty, u, v, t) {
+  // Write your code here
+  
+  const adjacencyList = constructGraph(beauty, u, v, t);
+  const visited = new Set();
+  visited.add(0);
+  
+  const maxBeauty = [];
+  
+  for (let neighbor of adjacencyList.get(0).neighbors) {
+      const [node, time] = neighbor;
+      maxBeauty.push(dfs(node, time, beauty[0], max_t, adjacencyList, visited));
+      visited.delete(node);
+  }
+  
+  return Math.max(...maxBeauty);
 }
 
-//add start location to queue
-addToQueue(0,0,0);
+function dfs(current, timeTaken, beautyCollected, max_t, graph, visited) {
+  if (timeTaken > max_t) return -Infinity;
+  
+  if (!visited.has(current)) beautyCollected += graph.get(current).beauty;
+  visited.add(current);
+  
 
-const isBetween = (num, lower, upper) => lower <= num && num <= upper;
-const validUnvisitedCell = (row,col) => {
-    return isBetween(row, 0, lastRow) && isBetween(col, 0, lastCol) && maze[row][col] === 0;
+  const beautyTotals = [0];
+  for (let neighbor of graph.get(current).neighbors) {
+      const [node, time] = neighbor;
+      beautyTotals.push(dfs(node, timeTaken+time, beautyCollected, max_t, graph, visited));
+      visited.delete(node);
+  }
+  
+  if (current === 0) return Math.max(beautyCollected, Math.max(...beautyTotals));
+  return Math.max(...beautyTotals);
+  
 }
 
-
-while(queue.length){
-    const [row,col,step] = queue.shift();
-    if(row === lastRow && col === lastCol) return step;
-    const newStep = step + 1;
-    let dirSkipFlag = 0;
-    for(let jumpSize=1; jumpSize<=k; jumpSize++){
-        for(let i =0; i<4; i++){
-            const dirFlag = 1<<i;
-            if(dirSkipFlag & dirFlag) continue;
-            const [dr,dc] = DIRECTIONS[i];
-            let nRow = row + dr*jumpSize;
-            let nCol = col + dc*jumpSize;
-            if(validUnvisitedCell(nRow,nCol)){
-                addToQueue(nRow,nCol,newStep);
-            } else {
-                dirSkipFlag |= dirFlag;
-            }
-        }
-    }
+function constructGraph(beauty, u, v, t) {
+  
+  const graph = new Map();
+  
+  for (let i=0; i<beauty.length; i++) {
+      graph.set(i, {beauty: beauty[i], neighbors: new Map()});
+  }
+  
+  for (let i=0; i<u.length; i++) {
+      graph.get(u[i]).neighbors.set(v[i], t[i]);
+      graph.get(v[i]).neighbors.set(u[i], t[i]);
+  }
+  
+  return graph;
 }
-return -1;
 
-// 0 0000000000000000
-// 1 0000000000000001
-// 2 0000000000000010
-// 3 0000000000000011
-
+// beauty = [5, 10, 15, 20]
+// u = [0, 1, 0]
+// v = [1, 2, 3]
+// t = [10, 10, 10]
