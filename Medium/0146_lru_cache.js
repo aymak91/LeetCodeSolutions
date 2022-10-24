@@ -46,9 +46,9 @@ class Node {
         this.next = null;
         this.prev = null;
     }
-  }
+}
   
-  class DoublyLinkedList {
+class DoublyLinkedList {
     constructor() {
         // dummy nodes
         this.head = new Node(null, null);
@@ -58,7 +58,7 @@ class Node {
         this.head.next = this.tail;
         this.tail.prev = this.head;
     }
-    
+
     push(node) {
         // prev and next are relative to the current node
         let prev = this.tail.prev;
@@ -77,7 +77,7 @@ class Node {
         // if we return the node, then we can set the map[key] at the same time
         return node;
     }
-    
+
     remove(node) {
         // prev and next are relative to current node
         let prev = node.prev;
@@ -89,22 +89,22 @@ class Node {
         
         this.length--;
     }
-  }
-  
-  class LRUCache {
+}
+
+class LRUCache {
     constructor(capacity) {
         this.DLL = new DoublyLinkedList();
         this.map = {};
         this.capacity = capacity;
     }
-  
+
     get(key) {
         if(!this.map[key]) return -1;
         this.DLL.remove(this.map[key]);
         this.map[key] = this.DLL.push(this.map[key]);
         return this.map[key].val;
     }
-  
+
     put(key, value) {
         if(this.map[key]) this.DLL.remove(this.map[key]);
         const newNode = new Node(key, value);
@@ -115,4 +115,4 @@ class Node {
             this.DLL.remove(lru);
         }
     }
-  }
+}
