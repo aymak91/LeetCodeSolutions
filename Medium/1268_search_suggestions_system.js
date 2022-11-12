@@ -62,3 +62,8 @@
 
     return output;
 };
+
+// O(nlogn + n*w + 3m) where
+// n = products.length
+// w = longest product word length
+// m = searchWord.length
