@@ -66,7 +66,6 @@ var orangesRotting = function(grid) {
 
 
 
-// array solution
 const validCoordinate = function(board, row, col) {
     const validRow = row >= 0 && row < board.length;
     const validCol = col >= 0 && col <board[0].length;
@@ -118,6 +117,8 @@ class Node {
         this.prev = null;
     }
 }
+
+// array solution
 
 var orangesRotting = function(grid) {
     
