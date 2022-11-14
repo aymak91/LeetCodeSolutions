@@ -15,25 +15,26 @@
  * @param {number[][]} matrix
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
- let setZeroes = function(matrix) {
+
+let setZeroes = function(matrix) {
    
     const rows = new Set();
     const cols = new Set();
     
-    for (let i = 0; i < matrix.length; i++) {
-        for (let j = 0; j < matrix[0].length; j++) {
-            if (matrix[i][j] === 0) {
-                rows.add(i);
-                cols.add(j);
+    for (let r = 0; r < matrix.length; r++) {
+        for (let c = 0; c < matrix[0].length; c++) {
+            if (matrix[r][c] === 0) {
+                rows.add(r);
+                cols.add(c);
             }
         }
     }
     
     
-    for (let i = 0; i < matrix.length; i++) {
-        for (let j = 0; j < matrix[0].length; j++) {
-            if (rows.has(i) || cols.has(j)) {
-                matrix[i][j] = 0;
+    for (let r = 0; r < matrix.length; r++) {
+        for (let c = 0; c < matrix[0].length; c++) {
+            if (rows.has(r) || cols.has(c)) {
+                matrix[r][c] = 0;
             }
         }
     }
